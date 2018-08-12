@@ -4,8 +4,8 @@ from tflearn.layers.core import input_data, fully_connected, dropout
 from tflearn.layers.estimator import regression
 from tflearn.models.dnn import DNN
 
-from config import dropout_rate, slice_size, no_classes, model_output, model_output_path, batch_size, no_epochs
-from dataset import load_dataset
+from config import dropout_rate, slice_size, no_classes, cv_split, model_output, model_output_path, batch_size, no_epochs
+from dataset import get_dataset
 
 def create_model():
   cnn = input_data(name='Input', shape=[None, slice_size, slice_size, 1])
@@ -31,10 +31,10 @@ def create_model():
   return DNN(cnn)
 
 def train_model(model):
-  train_X, train_y = load_dataset('train')
+  train_X, train_y = get_dataset('train')
 
   print('\nTraining model')
-  model.fit(train_X, train_y, show_metric=True, validation_set=0.1,
+  model.fit(train_X, train_y, show_metric=True, validation_set=cv_split,
             shuffle=True,
             batch_size=batch_size,
             n_epoch=no_epochs)
@@ -49,7 +49,7 @@ def test_model(model):
   print('Loading model weights')
   model.load(model_output)
 
-  test_X, test_y = load_dataset('test')
-  print(test_X.shape, test_y.shape)
+  print('Testing model')
+  test_X, test_y = get_dataset('test')
   accuracy = model.evaluate(test_X, test_y)[0]
   print('\nTest accuracy: {.2f}'.format(accuracy * 100))

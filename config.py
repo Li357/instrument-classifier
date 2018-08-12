@@ -3,15 +3,18 @@
 dataset_path = '../../Downloads/IRMAS-TrainingData'
 
 spectrograms_path = '../irmas_data'
-slices_path = './slices'
-slice_size = 256
+slices_path = 'slices'
+slice_size = 128
 
 # Model config
+
+pickled_dataset_path = 'pickled'
 
 batch_size = 128
 no_epochs = 20
 dropout_rate = 0.5
-dataset_split = 0.8
+dataset_split = 0.9
+cv_split = 0.2
 
 classes = {
   'cel': 1,  # cello
