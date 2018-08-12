@@ -1,7 +1,32 @@
+# Preprocessing config
+
 dataset_path = '../../Downloads/IRMAS-TrainingData'
 
 spectrograms_path = '../irmas_data'
-spectrogram_size = 256
-
 slices_path = './slices'
 slice_size = 256
+
+# Model config
+
+batch_size = 128
+no_epochs = 20
+dropout_rate = 0.5
+dataset_split = 0.8
+
+classes = {
+  'cel': 1,  # cello
+  'cla': 2,  # clarinet
+  'flu': 3,  # flute
+  'gac': 4,  # acoustic guitar
+  'gel': 5,  # electric guitar
+  'org': 6,  # organ
+  'pia': 7,  # piano
+  'sax': 8,  # saxophone
+  'tru': 9,  # trumpet
+  'vio': 10, # violin
+  'voi': 11  # voice
+}
+no_classes = len(classes)
+
+model_output_path = 'weights'
+model_output = '{}/instrument_classifier.tflearn'.format(model_output_path)
